@@ -109,7 +109,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         username = usernameField.getText();
         psw = pswField.getText();
         
-        if(username != "" && psw != ""){
+        if((username.compareTo("") != 0) && (psw.compareTo("") != 0)){
             
             try{
                 
@@ -139,6 +139,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         catch(Exception ex){
             
             new errorForm("").setVisible(true);
+            //JOptionPane.showMessageDialog(null, "Error Message", "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         
         

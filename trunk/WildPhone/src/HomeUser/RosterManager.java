@@ -8,7 +8,7 @@ import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.XMPPConnection;
 
 /**
- *
+ * present e il roster per gli utenti
  * @author leox
  */
 public class RosterManager {
@@ -19,6 +19,7 @@ public class RosterManager {
         try{
             this.conn=xmppconn;
             this.rs=xmppconn.getRoster();
+            
         }
         catch (AbstractMethodError e) {
             System.out.println("EXCEPTION:"+e.getMessage());

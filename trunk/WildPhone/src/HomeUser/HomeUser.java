@@ -61,10 +61,10 @@ public class HomeUser extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Disconnetti");
         jMenu1.add(jMenuItem2);
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Esci");
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);

@@ -40,11 +40,14 @@ public class authenticationFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         loginButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
         usernameField = new javax.swing.JTextField();
         usernameLabel = new javax.swing.JLabel();
         pswLabel = new javax.swing.JLabel();
         pswField = new javax.swing.JPasswordField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,16 +58,30 @@ public class authenticationFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Registrati");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setText("Registrati");
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
         usernameLabel.setText("Username:");
 
         pswLabel.setText("Password:");
+
+        jMenu1.setText("File");
+
+        exit.setText("Esci");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exit);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,7 +93,7 @@ public class authenticationFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(loginButton)
                         .addGap(36, 36, 36)
-                        .addComponent(jButton2))
+                        .addComponent(registerButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(pswLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,7 +117,7 @@ public class authenticationFrame extends javax.swing.JFrame {
                     .addComponent(pswLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(134, 134, 134)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(registerButton)
                     .addComponent(loginButton))
                 .addContainerGap())
         );
@@ -133,7 +150,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         
         String username;
         String psw;
@@ -153,7 +170,13 @@ public class authenticationFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Non è possibile registrarsi con queste credenziali", "WildPhone", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        
+        System.exit(0);
+        
+    }//GEN-LAST:event_exitActionPerformed
 
    
     private void login(String username,String psw) throws XMPPException{
@@ -207,10 +230,13 @@ public class authenticationFrame extends javax.swing.JFrame {
     private final String server = "server di riferimento";
     private Connection xmppConnection;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JMenuItem exit;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField pswField;
     private javax.swing.JLabel pswLabel;
+    private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameField;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables

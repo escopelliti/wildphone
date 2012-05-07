@@ -133,6 +133,7 @@ private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
 private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
     conn.disconnect(new Presence(Presence.Type.unavailable));
     this.dispose();
+    //aprire una nuovo frame di login
 }//GEN-LAST:event_logoutActionPerformed
 
     /**

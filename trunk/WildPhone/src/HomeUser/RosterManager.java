@@ -17,6 +17,7 @@ import org.jivesoftware.smack.packet.Presence;
  * @author leox
  */
 public class RosterManager {
+    
         private  Roster rs;
         private  Connection xmppconn;
         private Presence presence;
@@ -24,9 +25,13 @@ public class RosterManager {
         private ArrayList users;
         //private  RosterEventsListener rosterEventListener;
         Collection<RosterEntry> entries;
+        
     public RosterManager (Connection xmppconn){
+        
         rs.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
+        
         try{
+            
             this.xmppconn=xmppconn;
             rs=xmppconn.getRoster();
             entries = rs.getEntries();

@@ -11,6 +11,8 @@
 package Authentication;
 
 import HomeUser.HomeUser;
+import javax.swing.JOptionPane;
+import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -54,6 +56,11 @@ public class authenticationFrame extends javax.swing.JFrame {
         });
 
         jButton2.setText("Registrati");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         usernameLabel.setText("Username:");
 
@@ -126,6 +133,28 @@ public class authenticationFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        String username;
+        String psw;
+        
+        username = usernameField.getText();
+        psw = pswField.getText();
+        
+        if((username.compareTo("") != 0) && (psw.compareTo("") != 0)){
+        
+            AccountManager accManager = this.xmppConnection.getAccountManager();
+        
+            try{
+                accManager.createAccount(username, psw);
+            }
+            catch(XMPPException ex){
+                
+                JOptionPane.showMessageDialog(null, "Non è possibile registrarsi con queste credenziali", "WildPhone", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
    
     private void login(String username,String psw) throws XMPPException{
         
@@ -138,8 +167,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         }
         catch(Exception ex){
             
-            new errorForm("").setVisible(true);
-            //JOptionPane.showMessageDialog(null, "Error Message", "WildPhone", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Autenticazione fallita", "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         
         

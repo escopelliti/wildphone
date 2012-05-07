@@ -41,6 +41,7 @@ public class HomeUser extends javax.swing.JFrame {
     public HomeUser(Connection conn) {
         this.conn = conn;
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to

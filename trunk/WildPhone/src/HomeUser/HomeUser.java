@@ -10,14 +10,18 @@
  */
 package HomeUser;
 
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.packet.Presence;
+
 /**
  *
  * @author ninux
  */
 public class HomeUser extends javax.swing.JFrame {
-
+    private XMPPConnection conn;
     /** Creates new form HomeUser */
-    public HomeUser() {
+    public HomeUser(XMPPConnection conn) {
+        this.conn = conn;
         initComponents();
     }
 
@@ -31,52 +35,62 @@ public class HomeUser extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        FriendsList = new javax.swing.JList();
+        call = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        logout = new javax.swing.JMenuItem();
+        exit = new javax.swing.JMenuItem();
+        add = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        remove = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        FriendsList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        FriendsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(FriendsList);
 
-        jButton1.setText("Chiama");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        call.setText("Chiama");
+        call.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                callActionPerformed(evt);
             }
         });
 
         jMenu1.setText("File");
 
-        jMenuItem2.setText("Disconnetti");
-        jMenu1.add(jMenuItem2);
+        logout.setText("Disconnetti");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(logout);
 
-        jMenuItem1.setText("Esci");
-        jMenu1.add(jMenuItem1);
+        exit.setText("Esci");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exit);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Contatti");
+        add.setText("Contatti");
 
         jMenuItem3.setText("Aggiungi");
-        jMenu2.add(jMenuItem3);
+        add.add(jMenuItem3);
 
-        jMenuItem4.setText("Elimina");
-        jMenu2.add(jMenuItem4);
+        remove.setText("Elimina");
+        add.add(remove);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(add);
 
         setJMenuBar(jMenuBar1);
 
@@ -88,7 +102,7 @@ public class HomeUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(call)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,16 +114,25 @@ public class HomeUser extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jButton1)))
+                        .addComponent(call)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jButton1ActionPerformed
+private void callActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callActionPerformed
+    
+}//GEN-LAST:event_callActionPerformed
+
+private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+    conn.disconnect(new Presence(Presence.Type.unavailable));
+    System.exit(0);
+}//GEN-LAST:event_exitActionPerformed
+
+private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+    conn.disconnect(new Presence(Presence.Type.unavailable));
+}//GEN-LAST:event_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,20 +165,20 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new HomeUser().setVisible(true);
+                new HomeUser(null).setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JList jList1;
+    private javax.swing.JList FriendsList;
+    private javax.swing.JMenu add;
+    private javax.swing.JButton call;
+    private javax.swing.JMenuItem exit;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem logout;
+    private javax.swing.JMenuItem remove;
     // End of variables declaration//GEN-END:variables
 }

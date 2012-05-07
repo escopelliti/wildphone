@@ -4,6 +4,7 @@
  */
 package HomeUser;
 
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.XMPPConnection;
 
@@ -13,9 +14,9 @@ import org.jivesoftware.smack.XMPPConnection;
  */
 public class RosterManager {
         private  Roster rs;
-        private  XMPPConnection conn;
+        private  Connection conn;
         //private final RosterEventsListener rosterEventListener;
-    public RosterManager (XMPPConnection xmppconn){
+    public RosterManager (Connection xmppconn){
         try{
             this.conn=xmppconn;
             this.rs=xmppconn.getRoster();

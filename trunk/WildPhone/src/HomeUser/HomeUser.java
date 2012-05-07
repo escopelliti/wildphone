@@ -10,8 +10,11 @@
  */
 package HomeUser;
 
+import java.util.Collection;
+import java.util.Vector;
 import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.packet.Presence;
 
 /**
@@ -21,6 +24,20 @@ import org.jivesoftware.smack.packet.Presence;
 public class HomeUser extends javax.swing.JFrame {
     private Connection conn;
     /** Creates new form HomeUser */
+    
+    /*
+     * 
+     * Estraggo la lista degli amici dal roster dividendoli tra coloro che sono 
+     * online e quelli offline
+     * 
+     */
+    
+    private Vector getFriendsList(Connection conn) {
+        Roster roster = conn.getRoster();
+        Collection<RosterEntry> friends = roster.getEntries();
+        
+    }
+    
     public HomeUser(Connection conn) {
         this.conn = conn;
         initComponents();
@@ -42,8 +59,8 @@ public class HomeUser extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem();
-        add = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        contatti = new javax.swing.JMenu();
+        add = new javax.swing.JMenuItem();
         remove = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,15 +100,25 @@ public class HomeUser extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        add.setText("Contatti");
+        contatti.setText("Contatti");
 
-        jMenuItem3.setText("Aggiungi");
-        add.add(jMenuItem3);
+        add.setText("Aggiungi");
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
+        contatti.add(add);
 
         remove.setText("Elimina");
-        add.add(remove);
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+        contatti.add(remove);
 
-        jMenuBar1.add(add);
+        jMenuBar1.add(contatti);
 
         setJMenuBar(jMenuBar1);
 
@@ -123,7 +150,7 @@ public class HomeUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void callActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callActionPerformed
-    
+    new callFriend(conn).setVisible(true);
 }//GEN-LAST:event_callActionPerformed
 
 private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
@@ -136,6 +163,14 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     this.dispose();
     //aprire una nuovo frame di login
 }//GEN-LAST:event_logoutActionPerformed
+
+private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+    new addFriend(conn).setVisible(true);
+}//GEN-LAST:event_addActionPerformed
+
+private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+    new removeFriend(conn).setVisible(true);
+}//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,12 +209,12 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList FriendsList;
-    private javax.swing.JMenu add;
+    private javax.swing.JMenuItem add;
     private javax.swing.JButton call;
+    private javax.swing.JMenu contatti;
     private javax.swing.JMenuItem exit;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenuItem remove;

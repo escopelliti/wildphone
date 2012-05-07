@@ -10,6 +10,7 @@
  */
 package HomeUser;
 
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.packet.Presence;
 
@@ -18,9 +19,9 @@ import org.jivesoftware.smack.packet.Presence;
  * @author ninux
  */
 public class HomeUser extends javax.swing.JFrame {
-    private XMPPConnection conn;
+    private Connection conn;
     /** Creates new form HomeUser */
-    public HomeUser(XMPPConnection conn) {
+    public HomeUser(Connection conn) {
         this.conn = conn;
         initComponents();
     }

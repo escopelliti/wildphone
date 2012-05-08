@@ -10,11 +10,7 @@
  */
 package HomeUser;
 
-import java.util.Collection;
-import java.util.Vector;
 import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.packet.Presence;
 
 /**
@@ -25,18 +21,6 @@ public class HomeUser extends javax.swing.JFrame {
     private Connection conn;
     /** Creates new form HomeUser */
     
-    /*
-     * 
-     * Estraggo la lista degli amici dal roster dividendoli tra coloro che sono 
-     * online e quelli offline
-     * 
-     */
-    
-    private Vector getFriendsList(Connection conn) {
-        Roster roster = conn.getRoster();
-        Collection<RosterEntry> friends = roster.getEntries();
-        
-    }
     
     public HomeUser(Connection conn) {
         this.conn = conn;
@@ -56,13 +40,15 @@ public class HomeUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         FriendsList = new javax.swing.JList();
         call = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem();
         contatti = new javax.swing.JMenu();
         add = new javax.swing.JMenuItem();
-        remove = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +66,12 @@ public class HomeUser extends javax.swing.JFrame {
                 callActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("jLabel1");
+
+        jTextField1.setText("jTextField1");
+
+        jButton1.setText("Elimina");
 
         jMenu1.setText("File");
 
@@ -111,14 +103,6 @@ public class HomeUser extends javax.swing.JFrame {
         });
         contatti.add(add);
 
-        remove.setText("Elimina");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        contatti.add(remove);
-
         jMenuBar1.add(contatti);
 
         setJMenuBar(jMenuBar1);
@@ -129,22 +113,32 @@ public class HomeUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(call)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(call)
+                        .addGap(80, 80, 80)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(call)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(call)
+                    .addComponent(jButton1))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,10 +162,6 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
     new addFriend(conn).setVisible(true);
 }//GEN-LAST:event_addActionPerformed
-
-private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-    new removeFriend(conn).setVisible(true);
-}//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,7 +197,7 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 //                new HomeUser(null).setVisible(true);
 //            }
 //        });
-//    
+    
 
 
 
@@ -217,10 +207,12 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JButton call;
     private javax.swing.JMenu contatti;
     private javax.swing.JMenuItem exit;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem logout;
-    private javax.swing.JMenuItem remove;
     // End of variables declaration//GEN-END:variables
 }

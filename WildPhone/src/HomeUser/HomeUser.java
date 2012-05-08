@@ -40,9 +40,9 @@ public class HomeUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         FriendsList = new javax.swing.JList();
         call = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Username = new javax.swing.JLabel();
+        status = new javax.swing.JTextField();
+        remove = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -67,11 +67,16 @@ public class HomeUser extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("jLabel1");
+        Username.setText("jLabel1");
 
-        jTextField1.setText("jTextField1");
+        status.setText("jTextField1");
 
-        jButton1.setText("Elimina");
+        remove.setText("Elimina");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -115,14 +120,14 @@ public class HomeUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(Username)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(call)
                         .addGap(80, 80, 80)
-                        .addComponent(jButton1)))
+                        .addComponent(remove)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -130,14 +135,14 @@ public class HomeUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(Username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(status))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(call)
-                    .addComponent(jButton1))
+                    .addComponent(remove))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -162,6 +167,10 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
     new addFriend(conn).setVisible(true);
 }//GEN-LAST:event_addActionPerformed
+
+private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,16 +212,16 @@ private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList FriendsList;
+    private javax.swing.JLabel Username;
     private javax.swing.JMenuItem add;
     private javax.swing.JButton call;
     private javax.swing.JMenu contatti;
     private javax.swing.JMenuItem exit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem logout;
+    private javax.swing.JButton remove;
+    private javax.swing.JTextField status;
     // End of variables declaration//GEN-END:variables
 }

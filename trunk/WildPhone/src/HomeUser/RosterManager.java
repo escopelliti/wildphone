@@ -4,12 +4,8 @@
  */
 package HomeUser;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
-import org.jivesoftware.smack.RosterListener;
+import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Presence;
 
 /**
@@ -22,8 +18,6 @@ public class RosterManager {
         private  Connection xmppconn;
         private Presence presence;
         
-        private ArrayList users;
-        //private  RosterEventsListener rosterEventListener;
         Collection<RosterEntry> entries;
         
     public RosterManager (Connection xmppconn){
@@ -31,11 +25,9 @@ public class RosterManager {
         rs.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
         
         try{
-            
             this.xmppconn=xmppconn;
             rs=xmppconn.getRoster();
             entries = rs.getEntries();
-            users=(ArrayList)entries; //Casting di entries in un vettore
             //visualizzo nella shell gli utenti collegati
             System.out.println("Utenti Presenti: "+rs.getEntryCount());
             for(RosterEntry entry : entries){
@@ -71,4 +63,78 @@ public class RosterManager {
             }
         });
     }
+    
+    public RosterGroup CreateGroup (String namegroup){
+        RosterGroup group = rs.createGroup(namegroup);
+        return group;
+    }
+    
+    public void DeleteGroup(){
+        
+    }
+    
+    public Boolean AddFriend(String name, String nickname){
+        /* Aggiunge un amico alla propria lista
+         * Passando il nome e un nickname che si vuole
+         * per identificare l'utente.
+         * il name deve essere del tipo"jsmith@example.com"
+         * il metodo ritorna True se è stato possibile e False se non è stato
+         * possibile inserire l'user.
+         */
+        try{
+            if(!rs.contains(name)){  //Se non è presente nella lista amici
+                rs.createEntry(name, nickname, null);
+                return true;
+            }
+            else return false;
+        }
+        catch(XMPPException e){
+            System.out.println("EXCEPTION:"+e);
+            return false;
+        }
+        
+    }
+    
+    public void DeleteFriend(RosterEntry entry){
+        try{
+                rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
+                //vedere un metodo del roster
+        }
+        catch(XMPPException e){
+            System.out.println("EXCEPTION:"+e);
+        }
+  
+    }
+    
+    public Collection<String> UserOnline(){
+        Collection<String> cre=null ;
+        for (RosterEntry entry : rs.getEntries())
+        {       
+                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+"/Smack");
+                if(thepresence.isAvailable())
+                cre.add(entry.getUser());
+        }
+        return cre;
+    }
+    
+    public Collection<String>  UserOffline(){
+        Collection<String> cre=null ;
+        for (RosterEntry entry : rs.getEntries())
+        {       
+                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+"/Smack");
+                if(!thepresence.isAway())
+                cre.add(entry.getUser());
+        }
+        return cre;
+    }
+    
+    public void SearchUser(){
+        
+    }
+    
+    public void SearchGroup(){
+        
+    }
+
+    
 }

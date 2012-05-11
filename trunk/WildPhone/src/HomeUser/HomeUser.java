@@ -150,6 +150,9 @@ public class HomeUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void callActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callActionPerformed
+    /*
+     * Inizia una chiamata con un amico presente nella propria lista contatti
+     */
     new callFriend(conn).setVisible(true);
 }//GEN-LAST:event_callActionPerformed
 
@@ -165,6 +168,10 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_logoutActionPerformed
 
 private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+    /*
+     * Apre il frame che mi consente di aggiugere un nuovo amico alla mia lista
+     * contatti
+     */
     new addFriend(conn).setVisible(true);
 }//GEN-LAST:event_addActionPerformed
 

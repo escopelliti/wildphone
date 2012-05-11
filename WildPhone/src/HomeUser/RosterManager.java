@@ -27,12 +27,12 @@ public class RosterManager {
         try{
             this.xmppconn=xmppconn;
             rs=xmppconn.getRoster();
-            entries = rs.getEntries();
-            //visualizzo nella shell gli utenti collegati
-            System.out.println("Utenti Presenti: "+rs.getEntryCount());
-            for(RosterEntry entry : entries){
-                System.out.println("NAME: "+entry.getName()+"\nUSER: "+entry.getUser()+"\n\n");
-            }
+//            entries = rs.getEntries();
+//            //visualizzo nella shell gli utenti collegati
+//            System.out.println("Utenti Presenti: "+rs.getEntryCount());
+//            for(RosterEntry entry : entries){
+//                System.out.println("NAME: "+entry.getName()+"\nUSER: "+entry.getUser()+"\n\n");
+//            }
         }
         catch (AbstractMethodError e) {
             System.out.println("EXCEPTION:"+e.getMessage());

@@ -109,11 +109,11 @@ public class RosterManager {
     public Collection<String> UserOnline(){
         Collection<String> cre=null ;
         for (RosterEntry entry : rs.getEntries())
-        {       
-                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+"/Smack");
+        {                                           //getUser() dovrebbe restituire l'intero jid tranne /Smack
+                Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server"*/+"/Smack");
                 if(thepresence.isAvailable())
-                cre.add(entry.getUser());
-        }
+                    cre.add(entry.getUser());//metterei entry.getName() che mi restituisce il nome dato che nella HOME
+        }                                   //non serve tutto il full jid ma solo il nome utente;
         return cre;
     }
     
@@ -121,9 +121,9 @@ public class RosterManager {
         Collection<String> cre=null ;
         for (RosterEntry entry : rs.getEntries())
         {       
-                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+"/Smack");
-                if(!thepresence.isAway())
-                cre.add(entry.getUser());
+                Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server*/+"/Smack");
+                if(!thepresence.isAway())//cosi credo che restituisci anche quelli che sono available 
+                    cre.add(entry.getUser());//anche qui forse è meglio getName();
         }
         return cre;
     }

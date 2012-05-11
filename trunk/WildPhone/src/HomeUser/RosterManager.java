@@ -59,6 +59,7 @@ public class RosterManager {
             @Override
             public void presenceChanged(Presence presence) {
                 //throw new UnsupportedOperationException("Not supported yet.");
+                //presence.setStatus(null);
                 System.out.println("Presence changed: " + presence.getFrom() + " " + presence);
             }
         });
@@ -109,8 +110,8 @@ public class RosterManager {
     public Collection<String> UserOnline(){
         Collection<String> cre=null ;
         for (RosterEntry entry : rs.getEntries())
-        {                                           //getUser() dovrebbe restituire l'intero jid tranne /Smack
-                Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server"*/+"/Smack");
+        {       
+                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+xmppconn.getServiceName());
                 if(thepresence.isAvailable())
                     cre.add(entry.getUser());//metterei entry.getName() che mi restituisce il nome dato che nella HOME
         }                                   //non serve tutto il full jid ma solo il nome utente;
@@ -128,7 +129,23 @@ public class RosterManager {
         return cre;
     }
     
-    public void searchUser(){
+    public Presence GetPresence(String jid){
+        /* get the presence of the select user with the jid's user.
+         * the jid format is user@domain/resource
+         */
+        Presence pres = rs.getPresenceResource(jid);
+        return pres;
+        
+    }
+    
+    public void SetPrecence(){
+        /* set the precence at the select jid's user
+         * the jid format is user@domain/resource
+         */
+        
+    }
+    
+    public void SearchUser(){
         
     }
     

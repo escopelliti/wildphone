@@ -64,16 +64,16 @@ public class RosterManager {
         });
     }
     
-    public RosterGroup CreateGroup (String namegroup){
+    public RosterGroup createGroup (String namegroup){
         RosterGroup group = rs.createGroup(namegroup);
         return group;
     }
     
-    public void DeleteGroup(){
+    public void deleteGroup(){
         
     }
     
-    public Boolean AddFriend(String name, String nickname){
+    public boolean addFriend(String name, String nickname){
         /* Aggiunge un amico alla propria lista
          * Passando il nome e un nickname che si vuole
          * per identificare l'utente.
@@ -95,7 +95,7 @@ public class RosterManager {
         
     }
     
-    public void DeleteFriend(RosterEntry entry){
+    public void deleteFriend(RosterEntry entry){
         try{
                 rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
                 //vedere un metodo del roster
@@ -128,11 +128,11 @@ public class RosterManager {
         return cre;
     }
     
-    public void SearchUser(){
+    public void searchUser(){
         
     }
     
-    public void SearchGroup(){
+    public void searchGroup(){
         
     }
 

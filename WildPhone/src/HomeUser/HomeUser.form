@@ -75,7 +75,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="status" min="-2" pref="300" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" pref="384" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="411" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="call" min="-2" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -140,13 +140,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="Username">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="username" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="status">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="remove">
       <Properties>

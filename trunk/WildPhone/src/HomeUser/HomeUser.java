@@ -11,6 +11,7 @@
 package HomeUser;
 
 import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.packet.Presence;
 
 /**
@@ -24,6 +25,8 @@ public class HomeUser extends javax.swing.JFrame {
     
     public HomeUser(Connection conn) {
         this.conn = conn;
+        String user = conn.getUser();
+        username = user.substring(0, user.indexOf("@"));
         initComponents();
         
     }
@@ -67,9 +70,7 @@ public class HomeUser extends javax.swing.JFrame {
             }
         });
 
-        Username.setText("jLabel1");
-
-        status.setText("jTextField1");
+        Username.setText(username);
 
         remove.setText("Elimina");
         remove.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +124,7 @@ public class HomeUser extends javax.swing.JFrame {
                         .addComponent(Username)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(call)
                         .addGap(80, 80, 80)
@@ -176,7 +177,7 @@ private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_addActionPerformed
 
 private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-// TODO add your handling code here:
+    new RemoveFriend(conn).setVisible(true);
 }//GEN-LAST:event_removeActionPerformed
 
     /**
@@ -216,7 +217,7 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
 
 
-
+    private String username;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList FriendsList;
     private javax.swing.JLabel Username;

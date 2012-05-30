@@ -7,6 +7,8 @@ package HomeUser;
 import java.util.Collection;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Mode;
+import org.jivesoftware.smackx.search.UserSearchManager;
 
 /**
  * present e il roster per gli utenti
@@ -25,8 +27,8 @@ public class RosterManager {
         rs.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
         
         try{
-            this.xmppconn=xmppconn;
-            rs=xmppconn.getRoster();
+            this.xmppconn = xmppconn;
+            rs = xmppconn.getRoster();
 //            entries = rs.getEntries();
 //            //visualizzo nella shell gli utenti collegati
 //            System.out.println("Utenti Presenti: "+rs.getEntryCount());
@@ -138,14 +140,22 @@ public class RosterManager {
         
     }
     
-    public void SetPrecence(){
+    public void setStatus(String text){
         /* set the precence at the select jid's user
          * the jid format is user@domain/resource
          */
+        this.presence.setStatus(text);
         
     }
     
+    public void setPresence(Mode mode){
+        
+        this.presence.setMode(mode);
+    }
+    
     public void SearchUser(){
+        
+        UserSearchManager us = new UserSearchManager(xmppconn);
         
     }
     

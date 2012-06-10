@@ -10,8 +10,8 @@
  */
 package HomeUser;
 
+import javax.swing.JOptionPane;
 import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.packet.Presence;
 
 /**
@@ -20,6 +20,8 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class HomeUser extends javax.swing.JFrame {
     private Connection conn;
+    private RosterManager rm;
+    private String[] online;
     /** Creates new form HomeUser */
     
     
@@ -27,6 +29,10 @@ public class HomeUser extends javax.swing.JFrame {
         this.conn = conn;
         String user = conn.getUser();
         username = user.substring(0, user.indexOf("@"));
+        rm = new RosterManager(conn);
+        online = (String[]) rm.UserOnline().toArray();
+        
+        
         initComponents();
         
     }
@@ -56,9 +62,9 @@ public class HomeUser extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         FriendsList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            String[] online;
+            public int getSize() { return online.length; }
+            public Object getElementAt(int i) { return online[i]; }
         });
         FriendsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(FriendsList);
@@ -177,7 +183,17 @@ private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_addActionPerformed
 
 private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-    new RemoveFriend(conn).setVisible(true);
+    Object[] opt = {"   Si   ", "   No   "};
+    int ans = JOptionPane.showOptionDialog(null, "Sei sicuro di volerlo eliminare? "
+                     , "Conferma - WildPhone",
+                     JOptionPane.YES_NO_OPTION,
+                     JOptionPane.QUESTION_MESSAGE,
+                     null,
+                     opt,
+                     opt[0]);
+     if(ans == 0) {
+         FriendsList.getSelectedValue()
+     }
 }//GEN-LAST:event_removeActionPerformed
 
     /**

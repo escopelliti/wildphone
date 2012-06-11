@@ -192,7 +192,7 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                      opt,
                      opt[0]);
      if(ans == 0) {
-         FriendsList.getSelectedValue()
+         FriendsList.getSelectedValue();
      }
 }//GEN-LAST:event_removeActionPerformed
 

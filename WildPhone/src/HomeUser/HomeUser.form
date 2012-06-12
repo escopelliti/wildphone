@@ -117,7 +117,7 @@
         <Component class="javax.swing.JList" name="FriendsList">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] online;&#xa;    public int getSize() { return online.length; }&#xa;    public Object getElementAt(int i) { return online[i]; }&#xa;}" type="code"/>
+              <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] list;&#xa;    public int getSize() { return list.length; }&#xa;    public Object getElementAt(int i) { return list[i]; }&#xa;}" type="code"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
           </Properties>

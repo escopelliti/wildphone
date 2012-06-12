@@ -125,7 +125,7 @@ public class RosterManager {
         for (RosterEntry entry : rs.getEntries())
         {       
                 Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server*/+"/Smack");
-                if(!thepresence.isAway())//cosi credo che restituisci anche quelli che sono available 
+                if(!thepresence.isAvailable())//cosi credo che restituisci anche quelli che sono available 
                     cre.add(entry.getUser());//anche qui forse è meglio getName();
         }
         return cre;

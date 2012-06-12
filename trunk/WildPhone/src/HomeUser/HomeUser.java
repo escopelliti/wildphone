@@ -21,7 +21,7 @@ import org.jivesoftware.smack.packet.Presence;
 public class HomeUser extends javax.swing.JFrame {
     private Connection conn;
     private RosterManager rm;
-    private String[] online;
+    private String[] list;
     /** Creates new form HomeUser */
     
     
@@ -30,7 +30,25 @@ public class HomeUser extends javax.swing.JFrame {
         String user = conn.getUser();
         username = user.substring(0, user.indexOf("@"));
         rm = new RosterManager(conn);
-        online = (String[]) rm.UserOnline().toArray();
+        
+        String[] online = (String[]) rm.UserOnline().toArray();
+        String[] offline = (String[]) rm.UserOffline().toArray();
+
+        list = new String[(online.length + offline.length + 3)];
+        list[1] = "UTENTI ONLINE";
+        int i = 2;
+        
+        for(int j = 0; j < list.length; j++) {
+            list[i] = online[j];
+            i++;
+        }
+        
+        list[i] = "UTENTI OFFLINE";
+        
+        for(int j = 0; j < list.length; j++) {
+            list[i] = offline[j];
+            i++;
+        }
         
         
         initComponents();
@@ -62,9 +80,9 @@ public class HomeUser extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         FriendsList.setModel(new javax.swing.AbstractListModel() {
-            String[] online;
-            public int getSize() { return online.length; }
-            public Object getElementAt(int i) { return online[i]; }
+            String[] list;
+            public int getSize() { return list.length; }
+            public Object getElementAt(int i) { return list[i]; }
         });
         FriendsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(FriendsList);

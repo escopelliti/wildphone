@@ -190,7 +190,12 @@ public class authenticationFrame extends javax.swing.JFrame {
         }
         catch(Exception ex){
             
+
+            //new errorForm("").setVisible(true);
+            //JOptionPane.showMessageDialog(null, "Error Message", "WildPhone", JOptionPane.ERROR_MESSAGE);
+
             JOptionPane.showMessageDialog(null, "Autenticazione fallita", "WildPhone", JOptionPane.ERROR_MESSAGE);
+
         }
         
         

@@ -34,21 +34,19 @@ public class addFriend extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Badd = new javax.swing.JButton();
+        Bannulla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Nome ");
 
-        jTextField1.setText("jTextField1");
+        Badd.setText("Aggiungi");
 
-        jButton1.setText("Aggiungi");
-
-        jButton2.setText("Anulla");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Bannulla.setText("Anulla");
+        Bannulla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BannullaActionPerformed(evt);
             }
         });
 
@@ -64,9 +62,9 @@ public class addFriend extends javax.swing.JFrame {
                 .addContainerGap(231, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(359, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(Bannulla)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(Badd)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -78,17 +76,17 @@ public class addFriend extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Badd)
+                    .addComponent(Bannulla))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BannullaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BannullaActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BannullaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,8 +124,8 @@ public class addFriend extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton Badd;
+    private javax.swing.JButton Bannulla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

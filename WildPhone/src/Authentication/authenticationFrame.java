@@ -144,7 +144,10 @@ public class authenticationFrame extends javax.swing.JFrame {
                 
                 System.out.println(ex.getMessage());
             }
-            
+            catch(InterruptedException ex){
+                
+                System.out.println(ex);
+            }
         }
         
         
@@ -159,14 +162,15 @@ public class authenticationFrame extends javax.swing.JFrame {
         psw = pswField.getText();
         
         if((username.compareTo("") != 0) && (psw.compareTo("") != 0)){
-        
-            AccountManager accManager = this.xmppConnection.getAccountManager();
-        
             try{
+                this.xmppConnection = new XMPPConnection(server);
+                this.xmppConnection.connect();
+                AccountManager accManager = this.xmppConnection.getAccountManager();
                 accManager.createAccount(username, psw);
-            }
+                JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo!!\nAdesso puoi utilizzare le credenziali scelte per accedere a WildPhone.", "WildPhone", JOptionPane.INFORMATION_MESSAGE);
+                }
             catch(XMPPException ex){
-                
+                System.out.println(ex.getMessage());
                 JOptionPane.showMessageDialog(null, "Non è possibile registrarsi con queste credenziali", "WildPhone", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -179,23 +183,19 @@ public class authenticationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
    
-    private void login(String username,String psw) throws XMPPException{
-        
-        this.xmppConnection = new XMPPConnection(server);
-        this.xmppConnection.connect();
+    private void login(String username,String psw) throws XMPPException, InterruptedException{
+                
         try{
-            
+            this.xmppConnection = new XMPPConnection(server);
+            this.xmppConnection.connect();
             this.xmppConnection.login(username, psw);
             new HomeUser(this.xmppConnection).setVisible(true);
+            this.dispose();
         }
-        catch(Exception ex){
+        catch(XMPPException ex){
             
-
-            //new errorForm("").setVisible(true);
-            //JOptionPane.showMessageDialog(null, "Error Message", "WildPhone", JOptionPane.ERROR_MESSAGE);
-
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Autenticazione fallita", "WildPhone", JOptionPane.ERROR_MESSAGE);
-
         }
         
         
@@ -232,7 +232,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         });
     }
     
-    private final String server = "server di riferimento";
+    private final String server = "10.155.235.100";
     private Connection xmppConnection;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exit;

@@ -5,6 +5,8 @@
 package HomeUser;
 
 import java.util.Collection;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
@@ -24,11 +26,13 @@ public class RosterManager {
         
     public RosterManager (Connection xmppconn){
         
-        rs.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
-        
         try{
             this.xmppconn = xmppconn;
             rs = xmppconn.getRoster();
+            this.presence = new Presence(Presence.Type.available);
+            setPresence(Mode.available);
+            presence.setPriority(24);
+            this.xmppconn.sendPacket(presence);            
 //            entries = rs.getEntries();
 //            //visualizzo nella shell gli utenti collegati
 //            System.out.println("Utenti Presenti: "+rs.getEntryCount());
@@ -37,34 +41,35 @@ public class RosterManager {
 //            }
         }
         catch (AbstractMethodError e) {
-            System.out.println("EXCEPTION:"+e.getMessage());
+            
+            JOptionPane.showMessageDialog(null,"Problemi tecnici.", "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         
         //Roster Listener
-            rs.addRosterListener(new RosterListener() {
-
-            @Override
-            public void entriesAdded(Collection<String> addresses) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void entriesUpdated(Collection<String> addresses) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void entriesDeleted(Collection<String> addresses) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void presenceChanged(Presence presence) {
-                //throw new UnsupportedOperationException("Not supported yet.");
-                //presence.setStatus(null);
-                System.out.println("Presence changed: " + presence.getFrom() + " " + presence);
-            }
-        });
+//            rs.addRosterListener(new RosterListener() {
+//
+//            @Override
+//            public void entriesAdded(Collection<String> addresses) {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void entriesUpdated(Collection<String> addresses) {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void entriesDeleted(Collection<String> addresses) {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void presenceChanged(Presence presence) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//                //presence.setStatus(null);
+//                System.out.println("Presence changed: " + presence.getFrom() + " " + presence);
+//            }
+//        });
     }
     
     public RosterGroup createGroup (String namegroup){
@@ -92,7 +97,7 @@ public class RosterManager {
             else return false;
         }
         catch(XMPPException e){
-            System.out.println("EXCEPTION:"+e);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "ACES", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
@@ -104,31 +109,33 @@ public class RosterManager {
                 //vedere un metodo del roster
         }
         catch(XMPPException e){
-            System.out.println("EXCEPTION:"+e);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "ACES", JOptionPane.ERROR_MESSAGE);
         }
   
     }
     
-    public Collection<String> UserOnline(){
-        Collection<String> cre=null ;
+    public Vector getUserOnline(){
+        
+        Vector usersOnline = new Vector();
         for (RosterEntry entry : rs.getEntries())
         {       
-                Presence thepresence = rs.getPresence(entry.getUser()+"@"+"server"+xmppconn.getServiceName());
+                Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server"+xmppconn.getServiceName()*/+"/Smack");
                 if(thepresence.isAvailable())
-                    cre.add(entry.getUser());//metterei entry.getName() che mi restituisce il nome dato che nella HOME
-        }                                   //non serve tutto il full jid ma solo il nome utente;
-        return cre;
+                    usersOnline.add(entry.getUser());
+        }
+        return usersOnline;
     }
     
-    public Collection<String>  UserOffline(){
-        Collection<String> cre=null ;
+    public Vector getUserOffline(){
+        
+        Vector usersOffline = new Vector();
         for (RosterEntry entry : rs.getEntries())
         {       
                 Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server*/+"/Smack");
-                if(!thepresence.isAvailable())//cosi credo che restituisci anche quelli che sono available 
-                    cre.add(entry.getUser());//anche qui forse è meglio getName();
+                if(!thepresence.isAvailable())
+                    usersOffline.add(entry.getName());
         }
-        return cre;
+        return usersOffline;
     }
     
     public Presence GetPresence(String jid){
@@ -155,7 +162,7 @@ public class RosterManager {
     
     public void SearchUser(){
         
-        UserSearchManager us = new UserSearchManager(xmppconn);
+//        UserSearchManager us = new UserSearchManager(xmppconn);
         
     }
     

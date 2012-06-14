@@ -1,5 +1,6 @@
 package HomeUser;
 
+import Authentication.authenticationFrame;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Presence;
@@ -62,11 +63,11 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         
         while(true){
             try{
-                refresher.sleep(2000);            
+                refresher.sleep(12000);        //due minuti    
                 FriendsList.setListData(rm.getUserOnline());
         }catch(InterruptedException ex){
             
-            JOptionPane.showMessageDialog(null, "Problemi tecnici.", "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Problemi tecnici. " + ex, "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         }
     }
@@ -197,7 +198,7 @@ private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     conn.disconnect(new Presence(Presence.Type.unavailable));
     this.dispose();
-    //aprire una nuovo frame di login
+    new authenticationFrame().setVisible(true);
 }//GEN-LAST:event_logoutActionPerformed
 
 private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed

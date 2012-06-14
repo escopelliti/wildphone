@@ -4,6 +4,7 @@ import Authentication.authenticationFrame;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Mode;
 
 /**
  *
@@ -26,6 +27,8 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         username = user.substring(0, user.indexOf("@"));
         rm = new RosterManager(conn);
         Thread.sleep(10000);
+        status = rm.getStatus(user);
+        mode = rm.getMode(user);
         refresher = new Thread(this);
         refresher.start();
 //        String[] online = (String[]) rm.getUserOnline().toArray();
@@ -64,7 +67,7 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         while(true){
             try{
                 refresher.sleep(12000);        //due minuti    
-                FriendsList.setListData(rm.getUserOnline());
+                FriendsList.setListData(rm.getUserOnline());                
         }catch(InterruptedException ex){
             
             JOptionPane.showMessageDialog(null, "Problemi tecnici. " + ex, "WildPhone", JOptionPane.ERROR_MESSAGE);
@@ -80,8 +83,10 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         FriendsList = new javax.swing.JList();
         call = new javax.swing.JButton();
         Username = new javax.swing.JLabel();
-        status = new javax.swing.JTextField();
+        statusField = new javax.swing.JTextField();
         remove = new javax.swing.JButton();
+        modeComboBox = new javax.swing.JComboBox();
+        changeStatus = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -103,10 +108,34 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
 
         Username.setText(username);
 
+        statusField.setEditable(false);
+        statusField.setText(status);
+        statusField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statusFieldMouseClicked(evt);
+            }
+        });
+
         remove.setText("Elimina");
         remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeActionPerformed(evt);
+            }
+        });
+
+        modeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "available", "away", "dnd", "xa", "chat" }));
+        modeComboBox.setSelectedItem(mode);
+        modeComboBox.setToolTipText("");
+        modeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modeComboBoxActionPerformed(evt);
+            }
+        });
+
+        changeStatus.setText("Cambia");
+        changeStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeStatusActionPerformed(evt);
             }
         });
 
@@ -151,15 +180,21 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Username)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(call)
                         .addGap(80, 80, 80)
-                        .addComponent(remove)))
+                        .addComponent(remove))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Username)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(changeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(17, 17, 17)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,14 +203,18 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(status))
-                .addGap(29, 29, 29)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(statusField)
+                        .addComponent(changeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(call)
                     .addComponent(remove))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,19 +266,38 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }
 }//GEN-LAST:event_removeActionPerformed
 
+    private void statusFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusFieldMouseClicked
+        statusField.setEditable(true);
+    }//GEN-LAST:event_statusFieldMouseClicked
+
+    private void modeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeComboBoxActionPerformed
+        
+        Mode mode = Mode.valueOf(modeComboBox.getSelectedItem().toString());
+        this.rm.setPresence(mode);
+    }//GEN-LAST:event_modeComboBoxActionPerformed
+
+    private void changeStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeStatusActionPerformed
+        
+        this.rm.setStatus(statusField.getText());
+    }//GEN-LAST:event_changeStatusActionPerformed
+
+    private String mode;
+    private String status;
     private String username;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList FriendsList;
     private javax.swing.JLabel Username;
     private javax.swing.JMenuItem add;
     private javax.swing.JButton call;
+    private javax.swing.JButton changeStatus;
     private javax.swing.JMenu contatti;
     private javax.swing.JMenuItem exit;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logout;
+    private javax.swing.JComboBox modeComboBox;
     private javax.swing.JButton remove;
-    private javax.swing.JTextField status;
+    private javax.swing.JTextField statusField;
     // End of variables declaration//GEN-END:variables
 }

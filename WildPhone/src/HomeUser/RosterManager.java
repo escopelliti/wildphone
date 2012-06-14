@@ -30,7 +30,8 @@ public class RosterManager {
             this.xmppconn = xmppconn;
             rs = xmppconn.getRoster();
             this.presence = new Presence(Presence.Type.available);
-            setPresence(Mode.available);
+            setStatus("Benvenuto su WildPhone.");
+            setPresence(Mode.away);
             presence.setPriority(24);
             this.xmppconn.sendPacket(presence);            
 //            entries = rs.getEntries();
@@ -81,6 +82,11 @@ public class RosterManager {
         
     }
     
+    public String getMode(String jid){
+        
+        return GetPresence(jid).getMode().toString();
+    }
+    
     public boolean addFriend(String name, String nickname){
         /* Aggiunge un amico alla propria lista
          * Passando il nome e un nickname che si vuole
@@ -103,6 +109,12 @@ public class RosterManager {
         
     }
     
+    public String getStatus(String jid){
+        
+        Presence jidPresence = GetPresence(jid);
+        return jidPresence.getStatus();
+    }
+    
     public void deleteFriend(RosterEntry entry){
         try{
                 rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
@@ -120,8 +132,13 @@ public class RosterManager {
         for (RosterEntry entry : rs.getEntries())
         {       
                 Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server"+xmppconn.getServiceName()*/+"/Smack");
-                if(thepresence.isAvailable())
-                    usersOnline.add(entry.getUser());
+                if(thepresence.isAvailable()){
+                    String jid = entry.getUser();
+                    String username = jid.substring(0, jid.indexOf("@"));
+                    String mode = getMode(jid);
+                    if(mode.equals(null)) mode = "available";
+                    usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);             
+                }
         }
         return usersOnline;
     }
@@ -142,7 +159,7 @@ public class RosterManager {
         /* get the presence of the select user with the jid's user.
          * the jid format is user@domain/resource
          */
-        Presence pres = rs.getPresenceResource(jid);
+        Presence pres = rs.getPresence(jid);
         return pres;
         
     }
@@ -152,13 +169,16 @@ public class RosterManager {
          * the jid format is user@domain/resource
          */
         this.presence.setStatus(text);
-        
+        this.xmppconn.sendPacket(presence);
     }
     
     public void setPresence(Mode mode){
         
         this.presence.setMode(mode);
+        this.xmppconn.sendPacket(presence);
     }
+    
+    
     
     public void SearchUser(){
         

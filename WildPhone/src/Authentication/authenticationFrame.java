@@ -159,7 +159,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         String psw;
         
         username = usernameField.getText();
-        psw = pswField.getText();
+        psw = String.copyValueOf(pswField.getPassword());
         
         if((username.compareTo("") != 0) && (psw.compareTo("") != 0)){
             try{

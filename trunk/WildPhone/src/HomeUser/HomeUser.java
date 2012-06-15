@@ -1,5 +1,6 @@
 package HomeUser;
 
+import Jingle.JingleManagers;
 import Authentication.authenticationFrame;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.Connection;
@@ -22,15 +23,9 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
     public HomeUser(Connection conn) throws InterruptedException {
         
         this.conn = conn;
+        this.jingleManager = new JingleManagers(this.conn);
         
-        String user = conn.getUser();
-        username = user.substring(0, user.indexOf("@"));
-        rm = new RosterManager(conn);
-        Thread.sleep(10000);
-        status = rm.getStatus(user);
-        mode = rm.getMode(user);
-        refresher = new Thread(this);
-        refresher.start();
+       initSystem();
 //        String[] online = (String[]) rm.getUserOnline().toArray();
 //        String[] offline = (String[]) rm.getUserOffline().toArray();
 //        System.out.println("4");
@@ -59,6 +54,18 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         
         initComponents();
         
+    }
+    
+    private void initSystem() throws InterruptedException{
+        
+        String user = conn.getUser();
+        username = user.substring(0, user.indexOf("@"));
+        rm = new RosterManager(conn);
+        Thread.sleep(3000);
+        status = rm.getStatus(user);
+        mode = rm.getMode(user);
+        refresher = new Thread(this);
+        refresher.start();
     }
     
     @Override
@@ -224,7 +231,10 @@ private void callActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:ev
     /*
      * Inizia una chiamata con un amico presente nella propria lista contatti
      */
-    new callFriend(conn).setVisible(true);
+    if(!FriendsList.isSelectionEmpty()){
+        String username = FriendsList.getSelectedValue().toString();
+        new callFriend(this.jingleManager,username.substring(0, username.indexOf(" "))).setVisible(true); 
+    }
 }//GEN-LAST:event_callActionPerformed
 
 private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
@@ -267,6 +277,7 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_removeActionPerformed
 
     private void statusFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusFieldMouseClicked
+        
         statusField.setEditable(true);
     }//GEN-LAST:event_statusFieldMouseClicked
 
@@ -279,8 +290,10 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private void changeStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeStatusActionPerformed
         
         this.rm.setStatus(statusField.getText());
+        this.statusField.setEditable(false);
     }//GEN-LAST:event_changeStatusActionPerformed
 
+    private JingleManagers jingleManager;
     private String mode;
     private String status;
     private String username;

@@ -31,7 +31,7 @@ public class RosterManager {
             rs = xmppconn.getRoster();
             this.presence = new Presence(Presence.Type.available);
             setStatus("Benvenuto su WildPhone.");
-            setPresence(Mode.away);
+            setPresence(Mode.available);
             presence.setPriority(24);
             this.xmppconn.sendPacket(presence);            
 //            entries = rs.getEntries();
@@ -135,9 +135,16 @@ public class RosterManager {
                 if(thepresence.isAvailable()){
                     String jid = entry.getUser();
                     String username = jid.substring(0, jid.indexOf("@"));
-                    String mode = getMode(jid);
-                    if(mode.equals(null)) mode = "available";
-                    usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);             
+                    String mode = null;
+                    try{
+                        mode = getMode(jid);
+                    }
+                    catch(Exception ex){
+                        mode = "available";
+                    }
+                    finally{
+                        usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);
+                    }
                 }
         }
         return usersOnline;

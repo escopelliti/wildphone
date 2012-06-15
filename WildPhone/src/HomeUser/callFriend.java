@@ -1,101 +1,44 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * callFriend.java
- *
- * Created on 12-giu-2012, 10.33.52
- */
 package HomeUser;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.jingle.JingleManager;
-import org.jivesoftware.smackx.jingle.JingleSession;
-import org.jivesoftware.smackx.jingle.JingleSessionRequest;
-import org.jivesoftware.smackx.jingle.listeners.JingleSessionRequestListener;
-import org.jivesoftware.smackx.jingle.media.JingleMediaManager;
-import org.jivesoftware.smackx.jingle.mediaimpl.jspeex.SpeexMediaManager;
-import org.jivesoftware.smackx.jingle.nat.ICETransportManager;
+import Jingle.JingleManagers;
 
-/**
- *
- * @author ninux
- */
 public class callFriend extends javax.swing.JFrame {
     
-    private Connection xmppConnection;
-    private JingleManager jm;
-    private JingleSession incoming = null;
-    private JingleSession outgoing = null;
-    /** Creates new form callFriend */
-    
-    private void initialize() {
-        
-        JingleManager.setJingleServiceEnabled();
-        ICETransportManager icetm0 = new ICETransportManager(xmppConnection, xmppConnection.getHost(), 3478);//prima 3478 NOTA il numero di porta è fisso// e deve essere in ascolto sul server(porta x UDP)
-        List<JingleMediaManager> mediaManagers = new ArrayList<JingleMediaManager>();
-        
-//        mediaManagers.add(new JmfMediaManager(icetm0));
-        mediaManagers.add(new SpeexMediaManager(icetm0));
-        //mediaManagers.add(new ScreenShareMediaManager(icetm0));
-        jm = new JingleManager(xmppConnection, mediaManagers);
-        jm.addCreationListener(icetm0);
-
-        jm.addJingleSessionRequestListener(new JingleSessionRequestListener() {
-            @Override
-            public void sessionRequested(JingleSessionRequest request) {
-
-                if (incoming != null)
-                    return;
-
-                try {
-                    // Accept the call
-                    incoming = request.accept();
-                    
-                   
-
-                    // Start the call
-                    incoming.startIncoming();
-                   
-                    
-                }
-                catch (XMPPException e) {
-                    
-                    JOptionPane.showMessageDialog(null, "Problemi tecnici.", "WildPhone", JOptionPane.ERROR_MESSAGE); 
-                }
-
-            }
-        });
-        
-    
-    }
-    
-    public callFriend(Connection conn) {
-        this.xmppConnection = conn;
-        initialize();
+    public callFriend(JingleManagers jingleManager,String username) {
+  
         initComponents();
+        this.jingleManager = jingleManager;
+        this.jingleManager.startCall(username+"@"+jingleManager.getHost()+"/Smack");
+        setLabels(username);
     }
     
+    public callFriend(String username){
+        
+        initComponents();
+        setLabels(username);
+    }
+    
+    private void setLabels(String user){
+        
+        //immagine standard o logo dell'applicazione
+        nameFriendLabel.setText(user);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        riaggancia = new javax.swing.JButton();
+        hangoutButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        nameFriendLabel = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        riaggancia.setText("Riaggancia");
-        riaggancia.addActionListener(new java.awt.event.ActionListener() {
+        hangoutButton.setText("Riaggancia");
+        hangoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                riagganciaActionPerformed(evt);
+                hangoutButtonActionPerformed(evt);
             }
         });
 
@@ -105,57 +48,53 @@ public class callFriend extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
-                .addComponent(riaggancia)
-                .addGap(33, 33, 33))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(32, 32, 32)
+                        .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(nameFriendLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                        .addComponent(hangoutButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                .addComponent(riaggancia)
-                .addGap(32, 32, 32))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addComponent(hangoutButton)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(nameFriendLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void riagganciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riagganciaActionPerformed
+    private void hangoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hangoutButtonActionPerformed
            
-            if (outgoing != null)
-                    try {
-                        outgoing.terminate();
-                    }
-                    catch (XMPPException e1) {
-                        System.out.println("error: " + e1.getMessage());
-                        //e1.printStackTrace();
-                    }
-                    finally {
-                        outgoing = null;
-                    }
-                if (incoming != null)
-                    try {
-                        incoming.terminate();
-                    }
-                    catch (XMPPException e1) {
-                        System.out.println("error: " + e1.getMessage());
-                    }
-                    finally {
-                        incoming = null;
-                    }
-            
-       
-    }//GEN-LAST:event_riagganciaActionPerformed
-
+        this.jingleManager.hangoutCall();
+        this.dispose();
+    }//GEN-LAST:event_hangoutButtonActionPerformed
+    
+    private JingleManagers jingleManager;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton hangoutButton;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton riaggancia;
+    private javax.swing.JLabel nameFriendLabel;
     // End of variables declaration//GEN-END:variables
 }

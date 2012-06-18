@@ -103,7 +103,7 @@ public class RosterManager {
             else return false;
         }
         catch(XMPPException e){
-            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "WildPhone", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
@@ -121,7 +121,7 @@ public class RosterManager {
                 //vedere un metodo del roster
         }
         catch(XMPPException e){
-            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
         }
   
     }

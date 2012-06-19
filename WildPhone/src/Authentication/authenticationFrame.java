@@ -152,7 +152,6 @@ public class authenticationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        
         String username;
         String psw;
         
@@ -180,7 +179,6 @@ public class authenticationFrame extends javax.swing.JFrame {
 
    
     private void login(String username,String psw) throws XMPPException, InterruptedException{
-                
         try{
             this.xmppConnection = new XMPPConnection(server);
             this.xmppConnection.connect();
@@ -192,11 +190,7 @@ public class authenticationFrame extends javax.swing.JFrame {
             //System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Autenticazione fallita: " + ex.getMessage(), "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
     }
-    
-    
     
     public static void main(String args[]) {
 

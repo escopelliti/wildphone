@@ -141,12 +141,10 @@ public class authenticationFrame extends javax.swing.JFrame {
             
             }
             catch(XMPPException ex){
-                
-                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Errore di connessione: " + ex.getMessage(), "WildPhone", JOptionPane.ERROR_MESSAGE);
             }
             catch(InterruptedException ex){
-                
-                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, "Errore: " + ex.getMessage(), "WildPhone", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -170,8 +168,8 @@ public class authenticationFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo!!\nAdesso puoi utilizzare le credenziali scelte per accedere a WildPhone.", "WildPhone", JOptionPane.INFORMATION_MESSAGE);
                 }
             catch(XMPPException ex){
-                System.out.println(ex.getMessage());
-                JOptionPane.showMessageDialog(null, "Non è possibile registrarsi con queste credenziali", "WildPhone", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Errore durante la registrazione: " + ex.getMessage(), "WildPhone", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Non è possibile registrarsi con queste credenziali", "WildPhone", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_registerButtonActionPerformed

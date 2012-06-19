@@ -175,9 +175,7 @@ public class authenticationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        
         System.exit(0);
-        
     }//GEN-LAST:event_exitActionPerformed
 
    
@@ -191,9 +189,8 @@ public class authenticationFrame extends javax.swing.JFrame {
             this.dispose();
         }
         catch(XMPPException ex){
-            
-            System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Autenticazione fallita", "WildPhone", JOptionPane.ERROR_MESSAGE);
+            //System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Autenticazione fallita: " + ex.getMessage(), "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         
         

@@ -4,13 +4,13 @@
  */
 package HomeUser;
 
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 import java.util.Collection;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
-import org.jivesoftware.smackx.search.UserSearchManager;
 
 /**
  * present e il roster per gli utenti
@@ -123,13 +123,14 @@ public class RosterManager {
         return jidPresence.getStatus();
     }
     
-    public void deleteFriend(RosterEntry entry){
+    public void deleteFriend(String user){
+        RosterEntry entry = rs.getEntry(user);
         try{
             rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
                 //vedere un metodo del roster
         }
         catch(XMPPException e){
-            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildpho", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
         }
   
     }

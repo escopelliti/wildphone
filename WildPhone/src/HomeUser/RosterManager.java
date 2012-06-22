@@ -117,7 +117,7 @@ public class RosterManager {
     
     public void deleteFriend(RosterEntry entry){
         try{
-                rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
+            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
                 //vedere un metodo del roster
         }
         catch(XMPPException e){

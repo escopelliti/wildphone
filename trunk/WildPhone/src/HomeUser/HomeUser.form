@@ -70,7 +70,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="503" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="544" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="call" min="-2" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -84,10 +84,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="statusField" min="-2" pref="300" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="changeStatus" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="changeStatus" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>

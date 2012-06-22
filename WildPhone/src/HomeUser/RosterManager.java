@@ -84,7 +84,15 @@ public class RosterManager {
     
     public String getMode(String jid){
         
-        return GetPresence(jid).getMode().toString();
+        String mode = null;
+        try{
+            mode = GetPresence(jid).getMode().toString();
+        }
+        catch(Exception ex){
+            
+            mode = "available";
+        }
+        return mode;
     }
     
     public boolean addFriend(String name, String nickname){
@@ -135,16 +143,8 @@ public class RosterManager {
                 if(thepresence.isAvailable()){
                     String jid = entry.getUser();
                     String username = jid.substring(0, jid.indexOf("@"));
-                    String mode = null;
-                    try{
-                        mode = getMode(jid);
-                    }
-                    catch(Exception ex){
-                        mode = "available";
-                    }
-                    finally{
-                        usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);
-                    }
+                    String mode = getMode(jid);
+                    usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);                   
                 }
         }
         return usersOnline;

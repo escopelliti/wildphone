@@ -157,7 +157,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         
         username = usernameField.getText();
         psw = String.copyValueOf(pswField.getPassword());
-        
+
         if((username.compareTo("") != 0) && (psw.compareTo("") != 0)){
             try{
                 this.xmppConnection = new XMPPConnection(server);
@@ -221,7 +221,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         });
     }
     
-    private final String server = "172.17.117.201";
+    private final String server = "10.155.235.100";
     private Connection xmppConnection;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exit;

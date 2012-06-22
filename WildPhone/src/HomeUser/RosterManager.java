@@ -129,7 +129,7 @@ public class RosterManager {
                 //vedere un metodo del roster
         }
         catch(XMPPException e){
-            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildpho", JOptionPane.ERROR_MESSAGE);
         }
   
     }

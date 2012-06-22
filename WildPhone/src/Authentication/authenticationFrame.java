@@ -221,7 +221,7 @@ public class authenticationFrame extends javax.swing.JFrame {
         });
     }
     
-    private final String server = "localhost"; //"10.155.235.100" 172.17.117.201 localhost
+    private final String server = "localhost";//"10.155.235.100"; 172.17.117.201 
     private Connection xmppConnection;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exit;

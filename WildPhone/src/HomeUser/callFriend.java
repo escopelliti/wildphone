@@ -34,6 +34,7 @@ public class callFriend extends javax.swing.JFrame {
         iconLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("chiamata ");
 
         hangoutButton.setText("Riaggancia");
         hangoutButton.addActionListener(new java.awt.event.ActionListener() {

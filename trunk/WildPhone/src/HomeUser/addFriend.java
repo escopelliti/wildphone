@@ -1,21 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * addFriend.java
- *
- * Created on 16-mag-2012, 17.53.39
- */
 package HomeUser;
 
-import org.jivesoftware.smack.Connection;
-
-/**
- *
- * @author ninux
- */
 public class addFriend extends javax.swing.JFrame {
 
     /** Creates new form addFriend */
@@ -111,7 +95,7 @@ public class addFriend extends javax.swing.JFrame {
 
     private void BaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaddActionPerformed
         
-        if((nicknameField.getText().compareTo("") != 0) && (nameField.getText().compareTo("") != 0)){
+        if(/*(nicknameField.getText().compareTo("") != 0) &&*/ (nameField.getText().compareTo("") != 0)){
             this.rm.addFriend(nameField.getText()+"@"+this.host,nicknameField.getText());
             dispose();
         }

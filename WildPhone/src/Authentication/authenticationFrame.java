@@ -221,7 +221,9 @@ public class authenticationFrame extends javax.swing.JFrame {
         });
     }
     
-    private final String server = "voip.dyndns-server.com";// 172.17.117.201 
+    private final String server = "voip.dyndns-server.com";//"10.155.235.100"; 172.17.117.201 
+
+
     private Connection xmppConnection;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exit;

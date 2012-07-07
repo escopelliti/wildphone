@@ -32,7 +32,7 @@ public class RosterManager {
             this.presence = new Presence(Presence.Type.available);
             setStatus("Benvenuto su WildPhone.");
             setPresence(Mode.available);
-            presence.setPriority(24);
+            presence.setPriority(24);           
             this.xmppconn.sendPacket(presence);            
 //            entries = rs.getEntries();
 //            //visualizzo nella shell gli utenti collegati

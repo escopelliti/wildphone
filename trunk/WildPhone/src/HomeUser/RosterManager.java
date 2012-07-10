@@ -74,11 +74,6 @@ public class RosterManager {
          * possibile inserire l'user.
          */
         
-        packet.setType(IQ.Type.GET);
-        RosterPacket.Item item  = new RosterPacket.Item(entry.getUser(), entry.getName());
-        item.setItemType(RosterPacket.ItemType.REMOVE);
-        packet.addRosterItem(item);
-        conn.sendPacket(packet);
         try{
             if(!rs.contains(name)){  //Se non è presente nella lista amici
                 rs.createEntry(name, nickname, null);

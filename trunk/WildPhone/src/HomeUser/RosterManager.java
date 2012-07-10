@@ -100,20 +100,20 @@ public class RosterManager {
          */
         RosterEntry entry = rs.getEntry(user);
         //Mando un pacchetto al server ejabberd in cui indico l'user da eliminare
-        RosterPacket rp = new RosterPacket();
-        rp.setType(IQ.Type.SET);
-        RosterPacket.Item item = new RosterPacket.Item(entry.getUser(), entry.getName());
-        item.setItemType(RosterPacket.ItemType.remove);
-        rp.addRosterItem(item);
-        xmppconn.sendPacket(rp);
-//        try{
-//            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
-//                //vedere un metodo del roster
-//            
-//        }
-//        catch(XMPPException e){
-//            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
-//        }
+////        RosterPacket rp = new RosterPacket();
+////        rp.setType(IQ.Type.SET);
+////        RosterPacket.Item item = new RosterPacket.Item(entry.getUser(), entry.getName());
+////        item.setItemType(RosterPacket.ItemType.remove);
+////        rp.addRosterItem(item);
+////        xmppconn.sendPacket(rp);
+        try{
+            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
+                //vedere un metodo del roster
+            
+        }
+        catch(XMPPException e){
+            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
+        }
   
     }
     

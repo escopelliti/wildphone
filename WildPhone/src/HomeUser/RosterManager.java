@@ -4,13 +4,14 @@
  */
 package HomeUser;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 import java.util.Collection;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.*;
+import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
+import org.jivesoftware.smack.packet.RosterPacket;
 
 /**
  * present e il roster per gli utenti
@@ -33,44 +34,13 @@ public class RosterManager {
             setStatus("Benvenuto su WildPhone.");
             setPresence(Mode.available);
             presence.setPriority(24);           
-            this.xmppconn.sendPacket(presence);            
-//            entries = rs.getEntries();
-//            //visualizzo nella shell gli utenti collegati
-//            System.out.println("Utenti Presenti: "+rs.getEntryCount());
-//            for(RosterEntry entry : entries){
-//                System.out.println("NAME: "+entry.getName()+"\nUSER: "+entry.getUser()+"\n\n");
-//            }
+            this.xmppconn.sendPacket(presence); 
         }
         catch (AbstractMethodError e) {
             
             JOptionPane.showMessageDialog(null,"Problemi tecnici.", "WildPhone", JOptionPane.ERROR_MESSAGE);
         }
         
-        //Roster Listener
-//            rs.addRosterListener(new RosterListener() {
-//
-//            @Override
-//            public void entriesAdded(Collection<String> addresses) {
-//                throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            @Override
-//            public void entriesUpdated(Collection<String> addresses) {
-//                throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            @Override
-//            public void entriesDeleted(Collection<String> addresses) {
-//                throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            @Override
-//            public void presenceChanged(Presence presence) {
-//                //throw new UnsupportedOperationException("Not supported yet.");
-//                //presence.setStatus(null);
-//                System.out.println("Presence changed: " + presence.getFrom() + " " + presence);
-//            }
-//        });
     }
     
     public RosterGroup createGroup (String namegroup){
@@ -124,14 +94,25 @@ public class RosterManager {
     }
     
     public void deleteFriend(String user){
+        /* Eliminare un amico dato in input il suo indirizzo JID
+         * tipo "jsmith@example.com"
+         */
         RosterEntry entry = rs.getEntry(user);
-        try{
-            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
-                //vedere un metodo del roster
-        }
-        catch(XMPPException e){
-            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
-        }
+        //Mando un pacchetto al server ejabberd in cui indico l'user da eliminare
+        RosterPacket rp = new RosterPacket();
+        rp.setType(IQ.Type.SET);
+        RosterPacket.Item item = new RosterPacket.Item(entry.getUser(), entry.getName());
+        item.setItemType(RosterPacket.ItemType.remove);
+        rp.addRosterItem(item);
+        xmppconn.sendPacket(rp);
+//        try{
+//            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
+//                //vedere un metodo del roster
+//            
+//        }
+//        catch(XMPPException e){
+//            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
+//        }
   
     }
     

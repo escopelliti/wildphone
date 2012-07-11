@@ -28,12 +28,13 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
         this.jingleManager = new JingleManagers(this.conn);
         
        initSystem();
-       
+       //RosterListener sta in ascolto del proprio roster, 
+       //per eventuali mutamenti di stato,presenza oppure cancellazioni e update di user
        RosterListener rl = new RosterListener() {
 
             @Override
             public void entriesAdded(Collection<String> addresses) {
-                
+                //viene eseguito si è aggiunti da qualche user come amici
                  FriendsList.setListData(rm.getUserOnline());
                  System.out.println("Entry Aggiunta");
                 throw new UnsupportedOperationException("Not supported yet.");
@@ -41,6 +42,7 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
 
             @Override
             public void entriesUpdated(Collection<String> addresses) {
+                //viene eseguito se si scatenato un cambiamento di stato,presence ecc di un amico aggiunto
                  FriendsList.setListData(rm.getUserOnline());
                  System.out.println("Entry Update");
                 throw new UnsupportedOperationException("Not supported yet.");
@@ -48,6 +50,7 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
 
             @Override
             public void entriesDeleted(Collection<String> addresses) {
+                //viene eseguito se si è stati eliminati da un user amico
                  FriendsList.setListData(rm.getUserOnline());
                  System.out.println("Entry Delete"+addresses.toString());
                 throw new UnsupportedOperationException("Not supported yet.");
@@ -55,11 +58,13 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
 
             @Override
             public void presenceChanged(Presence presence) {
+                //viene eseguito ogni qual volta un user cambia la propria presenza
                 FriendsList.setListData(rm.getUserOnline());
                 System.out.println("Entry Presence Change");
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         };
+       //collega al proprio roster il rosterlistener messo in ascolto
        rm.getRoster().addRosterListener(rl);
        
 //        String[] online = (String[]) rm.getUserOnline().toArray();

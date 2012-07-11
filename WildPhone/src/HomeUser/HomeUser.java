@@ -2,8 +2,10 @@ package HomeUser;
 
 import Jingle.JingleManagers;
 import Authentication.authenticationFrame;
+import java.util.Collection;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 
@@ -11,9 +13,9 @@ import org.jivesoftware.smack.packet.Presence.Mode;
  *
  * @author ninux
  */
-public class HomeUser extends javax.swing.JFrame implements Runnable{
+public class HomeUser extends javax.swing.JFrame { //implement runnable
     
-    private Thread refresher;
+   // private Thread refresher;
     private Connection conn;
     private RosterManager rm;
 //    private String[] list;
@@ -26,6 +28,40 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         this.jingleManager = new JingleManagers(this.conn);
         
        initSystem();
+       
+       RosterListener rl = new RosterListener() {
+
+            @Override
+            public void entriesAdded(Collection<String> addresses) {
+                
+                 FriendsList.setListData(rm.getUserOnline());
+                 System.out.println("Entry Aggiunta");
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void entriesUpdated(Collection<String> addresses) {
+                 FriendsList.setListData(rm.getUserOnline());
+                 System.out.println("Entry Update");
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void entriesDeleted(Collection<String> addresses) {
+                 FriendsList.setListData(rm.getUserOnline());
+                 System.out.println("Entry Delete"+addresses.toString());
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void presenceChanged(Presence presence) {
+                FriendsList.setListData(rm.getUserOnline());
+                System.out.println("Entry Presence Change");
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+       rm.getRoster().addRosterListener(rl);
+       
 //        String[] online = (String[]) rm.getUserOnline().toArray();
 //        String[] offline = (String[]) rm.getUserOffline().toArray();
 //        System.out.println("4");
@@ -61,26 +97,27 @@ public class HomeUser extends javax.swing.JFrame implements Runnable{
         String user = conn.getUser();
         username = user.substring(0, user.indexOf("@"));
         rm = new RosterManager(conn);
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
         status = rm.getStatus(user);
         mode = rm.getMode(user);
-        refresher = new Thread(this);
-        refresher.start();
+        //refresher = new Thread(this);
+        //refresher.start();
     }
     
-    @Override
-    public void run(){
-        
-        while(true){
-            try{
-                refresher.sleep(12000);        //due minuti    
-                FriendsList.setListData(rm.getUserOnline());                
-        }catch(InterruptedException ex){
-            
-            JOptionPane.showMessageDialog(null, "Problemi tecnici. " + ex, "WildPhone", JOptionPane.ERROR_MESSAGE);
-        }
-        }
-    }
+//    @Override
+//    public void run(){
+//        
+//        while(true){
+//            try{
+//                refresher.sleep(12000);        //due minuti    
+//                FriendsList.setListData(rm.getUserOnline());
+//                System.out.println("utenti online"+ rm.getUserOnline().toString());
+//        }catch(InterruptedException ex){
+//            
+//            JOptionPane.showMessageDialog(null, "Problemi tecnici. " + ex, "WildPhone", JOptionPane.ERROR_MESSAGE);
+//        }
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -271,7 +308,8 @@ private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                      opt,
                      opt[0]);
         if(ans == 0) {
-           this.rm.deleteFriend(toRemove);
+            //System.out.println(" da eliminare"+toRemove.substring(0, toRemove.indexOf(" "))+"@"+conn.getHost());
+           this.rm.deleteFriend(toRemove.substring(0, toRemove.indexOf(" "))+"@"+conn.getHost());
         }
     }
 }//GEN-LAST:event_removeActionPerformed

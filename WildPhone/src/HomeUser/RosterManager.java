@@ -18,12 +18,14 @@ import org.jivesoftware.smack.packet.RosterPacket;
  * @author leox
  */
 public class RosterManager {
-    
+    //Roster che gestisce vari metodi da e per interazione con il server XMPP
         private  Roster rs=null;
         private  Connection xmppconn;
         private Presence presence;
         //Collection<RosterEntry> entries;
         
+        
+        //Costruttore del RosterManager
     public RosterManager (Connection xmppconn){
         
         try{
@@ -45,6 +47,7 @@ public class RosterManager {
     }
     
         public Roster getRoster(){
+            //metodo che da in output il roster corrispondente alla connessione
             return rs;
         }
     
@@ -55,7 +58,7 @@ public class RosterManager {
     
     
     public String getMode(String jid){
-         /// Non CAPISCO CHE COSA SIGNIFICA
+         //metodo in grado di dare il tipo di presenza di un dato JID
         String mode = null;
         try{
             mode = GetPresence(jid).getMode().toString();
@@ -88,6 +91,7 @@ public class RosterManager {
         try{
             if(!rs.contains(name)){  //Se non è presente nella lista amici
                 rs.createEntry(name, nickname, null);
+                //xmppconn.sendPacket(new Presence(Presence.Type.available, "Cambiato", 128, Mode.available));
                 return true;
             }
             else return false;
@@ -100,7 +104,7 @@ public class RosterManager {
     }
     
     public String getStatus(String jid){
-        
+        //Metodo per sapere lo stato scritto dall'utente
         Presence jidPresence = GetPresence(jid);
         return jidPresence.getStatus();
     }
@@ -129,7 +133,7 @@ public class RosterManager {
     }
     
     public Vector getUserOnline(){
-        
+        //Metodo per estrapolazione degli utenti online amici del richiedente
         Vector usersOnline = new Vector();
         for (RosterEntry entry : rs.getEntries())
         {       
@@ -150,7 +154,7 @@ public class RosterManager {
     }
     
     public Vector getUserOffline(){
-        
+        //Metodo per estrapolazione degli utenti offline amici del richiedente
         Vector usersOffline = new Vector();
         for (RosterEntry entry : rs.getEntries())
         {       
@@ -162,6 +166,8 @@ public class RosterManager {
     }
     
     public Presence GetPresence(String jid){
+        //Metodo simile a getMod solo che rilascia un 
+        //oggetto Presence al contrario di getMod che rilascia stinga
         /* get the presence of the select user with the jid's user.
          * the jid format is user@domain/resource
          */
@@ -179,7 +185,7 @@ public class RosterManager {
     }
     
     public void setPresence(Mode mode){
-        
+        //metodo per il settaggio della propria presenza passandola da input
         this.presence.setMode(mode);
         //this.presence.setType(Presence.Type.available);
         //this.presence.setMode(Presence.Mode.available);

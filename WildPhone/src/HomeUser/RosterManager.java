@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package HomeUser;
 
-import java.util.Collection;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.*;
@@ -13,13 +8,10 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.packet.RosterPacket;
 
-/**
- * present e il roster per gli utenti
- * @author leox
- */
+
 public class RosterManager {
     //Roster che gestisce vari metodi da e per interazione con il server XMPP
-        private  Roster rs=null;
+        private  Roster rs = null;
         private  Connection xmppconn;
         private Presence presence;
         //Collection<RosterEntry> entries;
@@ -51,12 +43,6 @@ public class RosterManager {
             return rs;
         }
     
-////    public RosterGroup createGroup (String namegroup){
-//        RosterGroup group = rs.createGroup(namegroup);
-//        return group;
-//    }
-    
-    
     public String getMode(String jid){
          //metodo in grado di dare il tipo di presenza di un dato JID
         String mode = null;
@@ -78,16 +64,6 @@ public class RosterManager {
          * possibile inserire l'user.
          */
         
-////        RosterPacket rp = new RosterPacket();
-////        rp.setType(IQ.Type.SET);
-////        RosterPacket.Item item = new RosterPacket.Item(name, nickname);
-////        item.setItemType(RosterPacket.ItemType.both);
-////        item.setItemStatus(RosterPacket.ItemStatus.SUBSCRIPTION_PENDING);
-////        rp.addRosterItem(item);
-////        xmppconn.sendPacket(rp);
-////
-////        
-////        return true;
         try{
             if(!rs.contains(name)){  //Se non è presente nella lista amici
                 rs.createEntry(name, nickname, null);
@@ -121,15 +97,6 @@ public class RosterManager {
         item.setItemType(RosterPacket.ItemType.remove);
         rp.addRosterItem(item);
         xmppconn.sendPacket(rp);
-//        try{
-//            rs.removeEntry(entry); // non capisco come potrebbe essere eliminato un user dalla lista
-//                //vedere un metodo del roster
-//            
-//        }
-//        catch(XMPPException e){
-//            JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "Wildphone", JOptionPane.ERROR_MESSAGE);
-//        }
-  
     }
     
     public Vector getUserOnline(){
@@ -137,8 +104,7 @@ public class RosterManager {
         Vector usersOnline = new Vector();
         for (RosterEntry entry : rs.getEntries())
         {       
-                        System.out.println("Presence: " +rs.getPresence(entry.getUser()));
-                //Presence thepresence = rs.getPresence(entry.getUser()/*+"@"+"server"+xmppconn.getServiceName()*/+"/Smack");
+            System.out.println("Presence: " +rs.getPresence(entry.getUser()));
             Presence thepresence = rs.getPresence(entry.getUser()); 
             System.out.println("presene prelevate da: "+entry.getUser());
             System.out.println("entryes: "+rs.getEntries().toString());
@@ -148,7 +114,7 @@ public class RosterManager {
                     String username = jid.substring(0, jid.indexOf("@"));
                     String mode = getMode(jid);
                     usersOnline.add(username+" - "+getStatus(jid)+" - "+mode);                   
-                }
+            }
         }
         return usersOnline;
     }

@@ -15,10 +15,9 @@ import org.jivesoftware.smack.packet.Presence.Mode;
  */
 public class HomeUser extends javax.swing.JFrame { //implement runnable
     
-   // private Thread refresher;
     private Connection conn;
     private RosterManager rm;
-//    private String[] list;
+
     /** Creates new form HomeUser */
     
     
@@ -65,35 +64,8 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
             }
         };
        //collega al proprio roster il rosterlistener messo in ascolto
-       rm.getRoster().addRosterListener(rl);
-       
-//        String[] online = (String[]) rm.getUserOnline().toArray();
-//        String[] offline = (String[]) rm.getUserOffline().toArray();
-//        System.out.println("4");
-//        list = new String[(online.length + offline.length + 3)];
-//        list[1] = "UTENTI ONLINE";
-//        int i = 2;
-//        System.out.println("5");
-//        for(int j = 0; j < list.length; j++) {
-//            list[i] = online[j];
-//            i++;
-//        }
-//        
-//        list[i] = "UTENTI OFFLINE";
-//        
-//        for(int j = 0; j < list.length; j++) {
-//            list[i] = offline[j];
-//            i++;
-//        }
-        
-        
-        /* model della lista amici: new javax.swing.AbstractListModel() {
-    String[] list;
-    public int getSize() { return list.length; }
-    public Object getElementAt(int i) { return list[i]; }
-}*/
-        
-        initComponents();
+       rm.getRoster().addRosterListener(rl);   
+       initComponents();
         
     }
     
@@ -102,27 +74,12 @@ public class HomeUser extends javax.swing.JFrame { //implement runnable
         String user = conn.getUser();
         username = user.substring(0, user.indexOf("@"));
         rm = new RosterManager(conn);
-        //Thread.sleep(3000);
         status = rm.getStatus(user);
         mode = rm.getMode(user);
-        //refresher = new Thread(this);
-        //refresher.start();
+     
     }
     
-//    @Override
-//    public void run(){
-//        
-//        while(true){
-//            try{
-//                refresher.sleep(12000);        //due minuti    
-//                FriendsList.setListData(rm.getUserOnline());
-//                System.out.println("utenti online"+ rm.getUserOnline().toString());
-//        }catch(InterruptedException ex){
-//            
-//            JOptionPane.showMessageDialog(null, "Problemi tecnici. " + ex, "WildPhone", JOptionPane.ERROR_MESSAGE);
-//        }
-//        }
-//    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

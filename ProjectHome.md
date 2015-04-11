@@ -1,0 +1,1 @@
+a java-based voice application that uses XMPP protocol

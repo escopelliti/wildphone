@@ -1,0 +1,9 @@
+Contributors : 
+- cann-alberto
+    name : Alberto Cannavò 
+- escopelliti
+    name : Enrico Scopelliti 
+- nino-magazzu
+    name : Nino Magazzù
+- leox90
+    name : Leonardo Patti

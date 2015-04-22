@@ -70,7 +70,7 @@ public class RosterManager {
                 //xmppconn.sendPacket(new Presence(Presence.Type.available, "Cambiato", 128, Mode.available));
                 return true;
             }
-            else return false;
+            return false;
         }
         catch(XMPPException e){
             JOptionPane.showMessageDialog(null, "Si è verificato un problema.", "WildPhone", JOptionPane.ERROR_MESSAGE);
